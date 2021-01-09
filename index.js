@@ -4,6 +4,9 @@ const express = require('express');
 const application= express();
 const port =4002;      
 
+application.get('/', (request, resonse) =>{
+    resonse.send('The / request resived');
+});
 
 application.get('/add', (request, resonse) =>{
     resonse.send('The add request resived');
