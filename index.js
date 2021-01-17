@@ -2,7 +2,7 @@
 const api = require('./api');
 const express = require('express');      
 const application= express();
-const port =4002;      
+const port =3000;      
 
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
