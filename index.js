@@ -2,7 +2,7 @@
 const api = require('./api');
 const express = require('express');      
 const application= express();
-const port =5000;      
+const port = process.env.PORT || 5000;      
 
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
@@ -14,4 +14,4 @@ application.get('/add2/:n/:m', (request, response) =>{
     let sum = api.add(n,m);
     response.send(`${n} + ${m} = ${sum}`);
 });
-application. listen(process.env.PORT || port, () => console.log('The application is listening to '+port))
+application. listen(port, () => console.log('The application is listening to '+port))
