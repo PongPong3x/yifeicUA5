@@ -4,6 +4,8 @@ const express = require('express');
 const application= express();
 const port = process.env.PORT || 5000;      
 
+application.use(express.json())
+
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
 });
@@ -14,4 +16,13 @@ application.get('/add2/:n/:m', (request, response) =>{
     let sum = api.add(n,m);
     response.send(`${n} + ${m} = ${sum}`);
 });
+
+application.post('/register', (request, response) =>{
+    let name = request.body.name;
+    let email = request.body.email;
+    let password = request.body.password;
+    let sum = api.addCustomer(name,email,password);
+    response.send(`customer added ${name}`);
+});
+
 application. listen(port, () => console.log('The application is listening to '+port))
