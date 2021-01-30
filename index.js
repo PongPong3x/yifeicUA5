@@ -21,8 +21,15 @@ application.post('/register', (request, response) =>{
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
-    let sum = api.addCustomer(name,email,password);
-    response.send(`customer added ${name}`);
+    if(api.checkCustomer(name,email,password)==0){
+        response.status=307;
+        response.send(`customer already exist ${name}`);
+    }
+    else{
+        let sum = api.addCustomer(name,email,password);
+        response.send(`customer added ${name}`);
+    }
+    
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))
