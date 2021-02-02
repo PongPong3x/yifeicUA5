@@ -23,7 +23,7 @@ application.post('/register', (request, response) =>{
     let password = request.body.password;
     if(api.checkCustomer(name,email,password)==0){
         response.status=307;
-        response.send(`customer already exist ${name}`);
+        response.send(response.status);
     }
     else{
         let sum = api.addCustomer(name,email,password);
