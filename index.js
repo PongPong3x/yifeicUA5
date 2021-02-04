@@ -23,11 +23,11 @@ application.post('/register', (request, response) =>{
     let password = request.body.password;
     if(api.checkCustomer(name,email,password)==0){
         response.status=307;
-        response.send(response.status);
+        response.sendStatus(response.status);
     }
     else{
         let sum = api.addCustomer(name,email,password);
-        response.send(`customer added ${name}`);
+        response.send(JSON.stringify(`customer added ${name}`));
     }
     
 });
