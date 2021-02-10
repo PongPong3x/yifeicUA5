@@ -21,15 +21,59 @@ application.post('/register', (request, response) =>{
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
-    if(api.checkCustomer(name,email,password)==0){
+    if(api.checkCustomer(email,password)==0){
         response.status=307;
         response.sendStatus(response.status);
     }
     else{
         let sum = api.addCustomer(name,email,password);
+        //response.send(JSON.stringify(`customer added ${name}`));
         response.send(JSON.stringify(`customer added ${name}`));
     }
     
+});
+
+application.post('/login', (request, response) =>{
+    let name = request.body.name;
+    let email = request.body.email;
+    let password = request.body.password;
+    if(api.checkCustomer(email,password)==1){
+        response.send({"isvalid":true,"message":"customer exist"});
+    }
+    else{
+        response.send({"isvalid":false,"message":"customer not exist"});
+    }
+
+});
+application.get('/flowers', (request, response) =>{
+    let flowerL = api.getFlowers();
+    response.send(`${flowerL}`);
+});
+application.get('/quizzes', (request, response) =>{
+    let quizs = api.getQuizs();
+    response.send(`${quizs}`);
+});
+
+application.get('/quiz/:id', (request, response) =>{
+    let quiz = api.getQuizById(request.params.id);
+    response.send(`${quiz}`);
+});
+
+
+
+application.post('/score', (request, response) =>{
+    let quizTaker = request.body.quizTaker;
+    let quizId = request.body.quizId;
+    let score = request.body.score;
+    let date = request.body.date;
+    api.addScore(quizTaker,quizId,score,date);
+});
+
+application.get('/scores/:quiztaker/:quizid', (request, response) =>{
+    let quiztaker = request.body.quiztaker;
+    let quizid = request.body.quizid;
+    let scoreOfquiz = api.checkScore(quiztaker,quizid);
+    response.send(`${scoreOfquiz}`);
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))
