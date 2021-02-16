@@ -52,7 +52,7 @@ application.post('/login', (request, response) =>{
 });
 application.get('/flowers', (request, response) =>{
     let flowerL = api.getFlowers();
-    response.send(`${flowerL}`);
+    response.send(JSON. stringify(flowerL));
 });
 application.get('/quizzes', (request, response) =>{
     let quizs = api.getQuizs();
