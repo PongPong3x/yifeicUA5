@@ -56,7 +56,7 @@ application.get('/flowers', (request, response) =>{
 });
 application.get('/quizzes', (request, response) =>{
     let quizs = api.getQuizs();
-    response.send(`${quizs}`);
+    response.send(JSON. stringify(quizs));
 });
 
 application.get('/quiz/:id', (request, response) =>{
