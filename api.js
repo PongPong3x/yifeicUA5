@@ -6,7 +6,7 @@ let add = (n,m) => {
     return n+m;
 }
 
-let checkCustomer = (name,email, password) => {
+let checkCustomer = (email, password) => {
     for (var i = 0; i < customers.length; i++) {
         if(customers[i].email == email){
             if(customers[i].password != password){
@@ -52,15 +52,12 @@ let addScore = (quizTaker,quizId, score,date) => {
 
 
 let checkScore = (quiztaker,quizid) => {
-    for (var i = 0; i < customers.length; i++) {
-        if(customers[i].email == email){
-            if(customers[i].password != password){
-                return 2;
-            }
-            return 1;
+    for (var i = 0; i < scores.length; i++) {
+        if(scores[i].quizTaker == quiztaker && scores[i].quizId == quizId){
+            return scores[i].score;
         }
     }
-    return 0;
+    return "0";
 }
 
 exports.add = add;

@@ -43,10 +43,10 @@ application.post('/login', (request, response) =>{
     let email = request.body.email;
     let password = request.body.password;
     if(api.checkCustomer(email,password)==1){
-        response.send({"isvalid":true,"message":"customer exist"});
+        response.send(JSON. stringify({"isvalid":true,"message":"customer exist"}));
     }
     else{
-        response.send({"isvalid":false,"message":"customer not exist"});
+        response.send(JSON. stringify({"isvalid":false,"message":"customer not exist"}));
     }
 
 });
@@ -61,7 +61,7 @@ application.get('/quizzes', (request, response) =>{
 
 application.get('/quiz/:id', (request, response) =>{
     let quiz = api.getQuizById(request.params.id);
-    response.send(`${quiz}`);
+    response.send(JSON. stringify(quiz));
 });
 
 
@@ -78,7 +78,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
-    response.send(`${scoreOfquiz}`);
+    response.send(JSON. stringify(scoreOfquiz));
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))
