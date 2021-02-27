@@ -9,6 +9,7 @@ let add = (n,m) => {
 let checkCustomer = (email, password) => {
     for (var i = 0; i < customers.length; i++) {
         if(customers[i].email == email){
+            console.log(email);
             if(customers[i].password != password){
                 return 2;
             }

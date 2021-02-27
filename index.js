@@ -27,13 +27,12 @@ application.post('/register', (request, response) =>{
     let email = request.body.email;
     let password = request.body.password;
     if(api.checkCustomer(email,password)==0){
-        response.status=307;
-        response.sendStatus(response.status);
+        response.sendStatus(307);
     }
     else{
         let sum = api.addCustomer(name,email,password);
         //response.send(JSON.stringify(`customer added ${name}`));
-        response.send(JSON.stringify(`customer added ${name}`));
+        //response.send(JSON.stringify(`customer added ${name}`));
     }
     
 });
