@@ -47,8 +47,8 @@ let getQuizById = (id) => {
     }
 }
 
-let addScore = (quizTaker,quizId, score,date) => {
-    scores.push({quizTaker,quizId, score,date});
+let addScore = (quizTaker,quizId, score) => {
+    scores.push({quizTaker,quizId,score});
 }
 
 

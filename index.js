@@ -27,14 +27,14 @@ application.post('/register', (request, response) =>{
     let email = request.body.email;
     let password = request.body.password;
     if(api.checkCustomer(email,password)==0){
-        response.sendStatus(307);
+        response.sendStatus(403);
     }
     else{
         let sum = api.addCustomer(name,email,password);
+        response.sendStatus(200);
         //response.send(JSON.stringify(`customer added ${name}`));
         //response.send(JSON.stringify(`customer added ${name}`));
     }
-    
 });
 
 application.post('/login', (request, response) =>{
@@ -69,8 +69,8 @@ application.post('/score', (request, response) =>{
     let quizTaker = request.body.quizTaker;
     let quizId = request.body.quizId;
     let score = request.body.score;
-    let date = request.body.date;
-    api.addScore(quizTaker,quizId,score,date);
+    //let date = request.body.date;
+    api.addScore(quizTaker,quizId,score);
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
