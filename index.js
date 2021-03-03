@@ -71,6 +71,7 @@ application.post('/score', (request, response) =>{
     let score = request.body.score;
     //let date = request.body.date;
     api.addScore(quizTaker,quizId,score);
+    response.send(JSON. stringify({"message":"update successful"}));
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
