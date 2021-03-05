@@ -55,6 +55,7 @@ let addScore = (quizTaker,quizId, score) => {
 let checkScore = (quiztaker,quizid) => {
     for (var i = 0; i < scores.length; i++) {
         if(scores[i].quizTaker == quiztaker && scores[i].quizId == quizId){
+            console.log(scores[i].score);
             return scores[i].score;
         }
     }
