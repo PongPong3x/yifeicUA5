@@ -2,6 +2,9 @@ var {customers} = require('./customers');
 var {flowers} = require('./flowers');
 var {quizzes} = require('./data');
 var {scores} = require('./scores');
+const db = require('./db');
+const e = require('express');
+const { application } = require('express');
 let add = (n,m) => {
     return n+m;
 }
@@ -61,6 +64,19 @@ let checkScore = (quiztaker,quizid) => {
     }
     return "0";
 }
+
+
+
+/*
+let setCustomer = (name,email,password) => {
+    let alreadyExists = customers.find(x => x.email.toLowerCase() === email.toLowerCase());
+    if(alreadyExists){
+        return false;
+    }
+    customers.push({name,email,password});
+    return true;
+}
+*/
 
 exports.add = add;
 exports.addCustomer = addCustomer;

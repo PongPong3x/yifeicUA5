@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/yifeicUA/imagequiz-backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1"
   }
 }
