@@ -6,13 +6,13 @@ const application= express();
 const port = process.env.PORT || 5000;      
 
 application.use(express.json())
-
+/*
 application.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
  })
-
+*/
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
 });
@@ -89,8 +89,12 @@ application.post('/register', (request, response) =>{
     let email = request.body.email;
     let password = request.body.password;
     sql_api.setCustomer(name,email,password)
-    .then(x => response.json({message: 'The customer added'}))
+    .then(x => {
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.json({message: 'The customer added'});
+    })
     .catch(e => {
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.json({message: 'A customer with the same email already exists.'});
         //response.sendStatus(403);
     })
@@ -102,8 +106,10 @@ application.post('/login', (request, response) =>{
     let password = request.body.password;
     sql_api.checkCustomer(email,password)
     .then(x => {
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.send(JSON. stringify({"isvalid":true,"message":"customer exist"}));})
     .catch(e => {console.log(e);
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.send(JSON. stringify({"isvalid":false,"message":"customer not exist"}));})
 });
 
@@ -114,7 +120,9 @@ application.get('/customer', (request, response) =>{
         .then(x => {
             console.log(x);
             response.json(x);})
-        .catch(e => {console.log(e);
+        .catch(e => {
+            console.log(e);
+            response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             response.status(500).json({message: 'error in get all customer: '+e})
         })
     
@@ -124,6 +132,7 @@ application.get('/flowers', (request, response) =>{
     sql_api.getFlowers()
     .then(x => {
         console.log(x);
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.json(x);})
 });
 
@@ -131,6 +140,7 @@ application.get('/quizzes', (request, response) =>{
     sql_api.getQuizs()
     .then(x => {
         console.log(x);
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.json(x);})
 });
 
@@ -138,6 +148,7 @@ application.get('/quiz/:id', (request, response) =>{
     sql_api.getQuizById(request.params.id)
     .then(x => {
         console.log(x);
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.json(x);})
 });
 
@@ -147,6 +158,7 @@ application.post('/score', (request, response) =>{
     let score = request.body.score;
     //let date = request.body.date;
     api.addScore(quizTaker,quizId,score);
+    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     response.send(JSON. stringify({"message":"update successful"}));
 });
 
@@ -154,6 +166,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
+    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     response.send(JSON. stringify(scoreOfquiz));
 });
 
