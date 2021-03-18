@@ -109,11 +109,11 @@ application.post('/login', (request, response) =>{
     .then(x => {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        response.send(JSON. stringify({"isvalid":true,"message":"customer exist"}));})
+        response.json(JSON. stringify({"isvalid":true,"message":"customer exist"}));})
     .catch(e => {console.log(e);
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        response.send(JSON. stringify({"isvalid":false,"message":"customer not exist"}));})
+        response.json(JSON. stringify({"isvalid":false,"message":"customer not exist"}));})
 });
 
 
@@ -169,7 +169,7 @@ application.post('/score', (request, response) =>{
     api.addScore(quizTaker,quizId,score);
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    response.send(JSON. stringify({"message":"update successful"}));
+    response.json(JSON. stringify({"message":"update successful"}));
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
@@ -178,7 +178,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    response.send(JSON. stringify(scoreOfquiz));
+    response.json(JSON. stringify(scoreOfquiz));
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))
