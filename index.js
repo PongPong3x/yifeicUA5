@@ -107,9 +107,11 @@ application.post('/login', (request, response) =>{
     let password = request.body.password;
     sql_api.checkCustomer(email,password)
     .then(x => {
-        response.json(JSON. stringify({"isvalid":true,"message":"customer exist"}));})
+        response.json(JSON. stringify({"isvalid":true,"message":"customer exist"}));
+    })
     .catch(e => {console.log(e);
-        response.json(JSON. stringify({"isvalid":false,"message":"customer not exist"}));})
+        response.json(JSON. stringify({"isvalid":false,"message":"customer not exist"}));
+    })
 });
 
 
@@ -123,7 +125,7 @@ application.get('/customer', (request, response) =>{
             response.json(x);})
         .catch(e => {
             console.log(e);
-            response.status(500).json({message: 'error in get all customer: '+e})
+            response.status(500).json({message: 'error in get all customer: '+e});
         })
     
 });
@@ -134,7 +136,8 @@ application.get('/flowers', (request, response) =>{
     sql_api.getFlowers()
     .then(x => {
         console.log(x);
-        response.json(x);})
+        response.json(x);
+    })
 });
 
 application.get('/quizzes', (request, response) =>{
@@ -143,7 +146,8 @@ application.get('/quizzes', (request, response) =>{
     sql_api.getQuizs()
     .then(x => {
         console.log(x);
-        response.json(x);})
+        response.json(x);
+    })
 });
 
 application.get('/quiz/:id', (request, response) =>{
@@ -152,7 +156,8 @@ application.get('/quiz/:id', (request, response) =>{
     sql_api.getQuizById(request.params.id)
     .then(x => {
         console.log(x);
-        response.json(x);})
+        response.json(x);
+    })
 });
 
 application.post('/score', (request, response) =>{
@@ -163,7 +168,7 @@ application.post('/score', (request, response) =>{
     let score = request.body.score;
     //let date = request.body.date;
     api.addScore(quizTaker,quizId,score);
-    response.json(JSON. stringify({"message":"update successful"}));
+    response.json({message:"update successful"});
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
@@ -172,7 +177,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
-    response.json(JSON. stringify(scoreOfquiz));
+    response.json(scoreOfquiz);
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))

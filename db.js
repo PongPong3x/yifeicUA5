@@ -47,7 +47,6 @@ let getQuizs = (quizzes) =>{
             if(quizzes[i][j].name == id){
                 pool.query('create table if not exists imagequiz.quiz_question(quiz_id int primary key,question_id bigserial not null);');
                 pool.query('insert into imagequiz.quiz_question(quiz_id,question_id) values ($1)',[quizzes[i].id]);
-                return quizzes[i][j];
             }
         }
     }
