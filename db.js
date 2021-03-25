@@ -39,16 +39,18 @@ let checkCustomer = (email,password) =>{
 
 let getQuizs = (quizzes) =>{
     pool.query('drop table if exists imagequiz.quiz; create table imagequiz.quiz(id int primary key,name text not null,category_id int not null);');
-    pool.query('drop table if exists imagequiz.quiz_question; create table imagequiz.quiz_question(quiz_id int primary key,question_id bigserial not null);');
+    //pool.query('drop table if exists imagequiz.quiz_question; create table imagequiz.quiz_question(quiz_id int primary key,question_id bigserial not null);');
     for (var i = 0; i < quizzes.length; i++) {
         pool.query('create table if not exists imagequiz.quiz(id int primary key,name text not null,category_id int not null);');
         pool.query('insert into imagequiz.quiz(id,name,category_id) values ($1,$2,$3)',[quizzes[i].id,quizzes[i].name],1);
+        /*
         for(var j = 0; j < quizzes[i].length; j++){
             if(quizzes[i][j].name == id){
                 pool.query('create table if not exists imagequiz.quiz_question(quiz_id int primary key,question_id bigserial not null);');
-                pool.query('insert into imagequiz.quiz_question(quiz_id,question_id) values ($1)',[quizzes[i].id]);
+                pool.query('insert into imagequiz.quiz_question(quiz_id) values ($1)',[quizzes[i].id]);
             }
         }
+        */
     }
     return pool.query('select * from imagequiz.quiz')
     .then(x => x.rows);
