@@ -84,8 +84,10 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
 
 */
 application.post('/register', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
@@ -100,8 +102,10 @@ application.post('/register', (request, response) =>{
 });
 
 application.post('/login', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
@@ -117,8 +121,10 @@ application.post('/login', (request, response) =>{
 
 
 application.get('/customer', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getAllCustomer()
         .then(x => {
             console.log(x);
@@ -131,8 +137,10 @@ application.get('/customer', (request, response) =>{
 });
 
 application.get('/flowers', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getFlowers()
     .then(x => {
         console.log(x);
@@ -141,8 +149,10 @@ application.get('/flowers', (request, response) =>{
 });
 
 application.get('/quizzes', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizs()
     .then(x => {
         console.log(x);
@@ -151,8 +161,10 @@ application.get('/quizzes', (request, response) =>{
 });
 
 application.get('/quiz/:id', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizById(request.params.id)
     .then(x => {
         console.log(x);
@@ -161,8 +173,10 @@ application.get('/quiz/:id', (request, response) =>{
 });
 
 application.post('/score', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quizTaker = request.body.quizTaker;
     let quizId = request.body.quizId;
     let score = request.body.score;
@@ -172,8 +186,10 @@ application.post('/score', (request, response) =>{
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
