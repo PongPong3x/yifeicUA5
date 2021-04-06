@@ -9,6 +9,7 @@ application.use(express.json())
 application.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Cache-Control","no-cache");
     next();
  })
 
@@ -86,6 +87,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
 application.post('/register', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let name = request.body.name;
@@ -104,6 +106,7 @@ application.post('/register', (request, response) =>{
 application.post('/login', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let name = request.body.name;
@@ -123,6 +126,7 @@ application.post('/login', (request, response) =>{
 application.get('/customer', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getAllCustomer()
@@ -139,6 +143,7 @@ application.get('/customer', (request, response) =>{
 application.get('/flowers', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getFlowers()
@@ -151,6 +156,7 @@ application.get('/flowers', (request, response) =>{
 application.get('/quizzes', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizs()
@@ -163,6 +169,7 @@ application.get('/quizzes', (request, response) =>{
 application.get('/quiz/:id', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizById(request.params.id)
@@ -175,6 +182,7 @@ application.get('/quiz/:id', (request, response) =>{
 application.post('/score', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quizTaker = request.body.quizTaker;
@@ -188,6 +196,7 @@ application.post('/score', (request, response) =>{
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quiztaker = request.body.quiztaker;
