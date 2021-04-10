@@ -1,11 +1,13 @@
 
 const api = require('./api');
 const sql_api = require('./sql_api');
+const cors = require('cors');
 const express = require('express');      
 const application= express();
 const port = process.env.PORT || 5000;      
 
 application.use(express.json())
+application.use(cors())
 application.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
