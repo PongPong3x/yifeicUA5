@@ -197,15 +197,11 @@ application.post('/score', (request, response) =>{
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = api.checkScore(quiztaker,quizid);
-    response.json(scoreOfquiz);
+    response.send(JSON. stringify(scoreOfquiz));
+
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))

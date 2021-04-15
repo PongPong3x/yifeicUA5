@@ -28,14 +28,12 @@ create table imagequiz.question
 	choices text not null,
 	answer text not null
 );
-select * from imagequiz.question;
 
 create table imagequiz.category
 (
-	id int primary key,
+	id bigserial primary key,
 	name text not null
 );
-select * from imagequiz.category;
 
 
 create table imagequiz.quiz
@@ -44,7 +42,6 @@ create table imagequiz.quiz
 	name text not null,
 	category_id int not null
 );
-select * from imagequiz.quiz;
 
 
 
@@ -53,7 +50,6 @@ create table imagequiz.quiz_question
 	quiz_id int primary key,
 	question_id int not null
 );
-select * from imagequiz.quiz_question;
 
 
 create table imagequiz.flower
@@ -62,4 +58,3 @@ create table imagequiz.flower
 	name text not null,
 	picture text not null
 );
-select * from imagequiz.flower;
