@@ -41,11 +41,11 @@ let checkCustomer = (email,password) => {
 
 
 let getFlowers = () => {
-    return db.getFlowers(flowers);
+    return db.getFlowers();
 }
 
 let getQuizs= () =>{
-    return db.getQuizs(quizzes);
+    return db.getQuizs();
 }
 
 let getQuizById = (id) => {
