@@ -38,7 +38,7 @@ create table imagequiz.category
 
 create table imagequiz.quiz
 (
-	id int primary key,
+	id bigserial primary key,
 	name text not null,
 	category_id int not null
 );
