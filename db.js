@@ -26,7 +26,7 @@ let setCustomer = (name,email,password) => {
 let checkCustomer = (email,password) =>{
     const salt = bcrypt.genSaltSync(9);
     const hashPassword = bcrypt.hashSync(password, salt);
-    return pool.query('select * from imagequiz.customer where email = $1 and password = $2',
+    return pool.query('select * from imagequiz.customer where (email = $1 and password = $2)',
     [email.toLowerCase(),hashPassword]);
 }
 //3. category: id, name

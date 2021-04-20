@@ -15,6 +15,11 @@ application.use(function (req, res, next) {
     //res.header("Cache-Control","no-cache");
     next();
  })
+     //response.header("Access-Control-Allow-Origin", "*");
+    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //response.setHeader("Cache-Control","no-cache");
+    //response.setHeader("Access-Control-Allow-Origin", "*");
+    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
@@ -88,11 +93,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
 
 */
 application.post('/register', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
@@ -101,37 +102,27 @@ application.post('/register', (request, response) =>{
         response.json({message: 'The customer added'});
     })
     .catch(e => {
+        response.sendStatus(403);
         response.json({message: 'A customer with the same email already exists.'});
-        //response.sendStatus(403);
     })
 });
 
 application.post('/login', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
     sql_api.checkCustomer(email,password)
     .then(x => {
-        response.json(JSON. stringify({"isvalid":true,"message":"customer exist"}));
+        response.json({isvalid:true,message:"customer exist"});
     })
     .catch(e => {console.log(e);
-        response.json(JSON. stringify({"isvalid":false,"message":"customer not exist"}));
+        response.json({isvalid:false, message:"customer not exist"});
     })
 });
 
 
 
 application.get('/customer', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getAllCustomer()
         .then(x => {
             console.log(x);
@@ -144,11 +135,6 @@ application.get('/customer', (request, response) =>{
 });
 
 application.get('/flowers', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getFlowers()
     .then(x => {
         console.log(x);
@@ -157,11 +143,6 @@ application.get('/flowers', (request, response) =>{
 });
 
 application.get('/quizzes', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizs()
     .then(x => {
         console.log(x);
@@ -170,11 +151,6 @@ application.get('/quizzes', (request, response) =>{
 });
 
 application.get('/quiz/:id', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     sql_api.getQuizById(request.params.id)
     .then(x => {
         console.log(x);
@@ -183,11 +159,6 @@ application.get('/quiz/:id', (request, response) =>{
 });
 
 application.post('/score', (request, response) =>{
-    //response.header("Access-Control-Allow-Origin", "*");
-    //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //response.setHeader("Cache-Control","no-cache");
-    //response.setHeader("Access-Control-Allow-Origin", "*");
-    //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let quizTaker = request.body.quizTaker;
     let quizId = request.body.quizId;
     let score = request.body.score;

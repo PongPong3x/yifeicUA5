@@ -23,7 +23,7 @@ values('Yifei','napicchen@gmail.com','123')
 */
 create table imagequiz.question
 (
-	id int primary key,
+	id bigserial primary key,
 	picture text not null,
 	choices text not null,
 	answer text not null
@@ -47,7 +47,7 @@ create table imagequiz.quiz
 
 create table imagequiz.quiz_question
 (
-	quiz_id int primary key,
+	quiz_id int not null,
 	question_id int not null
 );
 
