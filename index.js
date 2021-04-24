@@ -108,7 +108,7 @@ application.post('/register', (request, response) =>{
 });
 
 application.post('/login', (request, response) =>{
-    let name = request.body.name;
+    //let name = request.body.name;
     let email = request.body.email;
     let password = request.body.password;
     sql_api.checkCustomer(email,password)
