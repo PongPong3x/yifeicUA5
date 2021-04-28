@@ -16,11 +16,11 @@ create table imagequiz.customer
 	email text not null unique,
 	password text not null
 );
-/*
+
 select * from imagequiz.customer;
 insert into imagequiz.customer (name,email,password)
 values('Yifei','napicchen@gmail.com','123')
-*/
+
 create table imagequiz.question
 (
 	id bigserial primary key,
