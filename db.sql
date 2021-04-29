@@ -17,9 +17,8 @@ create table imagequiz.customer
 	password text not null
 );
 
-select * from imagequiz.customer;
 insert into imagequiz.customer (name,email,password)
-values('Yifei','napicchen@gmail.com','123')
+values('Yifei','napicchen@gmail.com','123');
 
 create table imagequiz.question
 (

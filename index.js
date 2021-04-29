@@ -99,11 +99,11 @@ application.post('/register', (request, response) =>{
     let password = request.body.password;
     sql_api.setCustomer(name,email,password)
     .then(x => {
-        response.json({message: 'The customer added'});
+        response.status(200).json({message: 'The customer added'});
     })
     .catch(e => {
-        response.sendStatus(403);
-        response.json({message: 'A customer with the same email already exists.'});
+        //response.sendStatus(403);
+        response.status(403).json({message: 'A customer with the same email already exists.'});
     })
 });
 
