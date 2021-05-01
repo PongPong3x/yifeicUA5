@@ -113,10 +113,10 @@ application.post('/login', (request, response) =>{
     let password = request.body.password;
     sql_api.checkCustomer(email,password)
     .then(x => {
-        response.json({isvalid:true,message:"customer exist"});
+        response.json({isvalid:"true",message:"customer exist"});
     })
     .catch(e => {console.log(e);
-        response.json({isvalid:false, message:"customer not exist"});
+        response.json({isvalid:"false", message:"customer not exist"});
     })
 });
 
