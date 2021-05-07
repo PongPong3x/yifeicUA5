@@ -19,7 +19,6 @@ let getAllCustomer= () =>{
 let setCustomer = (name,email,password) => {
     const salt = bcrypt.genSaltSync(8);
     const hashPassword = bcrypt.hashSync(password, salt);
-    return pool.query('insert into imagequiz.customer values($1,$2,$3)',[name,email.toLowerCase(),hashPassword]);
     return pool.query('insert into imagequiz.customer(name,email,password) values ($1,$2,$3)',
     [name,email.toLowerCase(),hashPassword]);
 }
