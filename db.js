@@ -1,5 +1,5 @@
 //const e = require('express');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const {Pool} = require('pg');
 const connectionString = `postgres://liknsyvyppedoj:fcfe71e1f7cf8408f9dfc9b3cdee82ab1056a6fee41ea6a0e6c626ce435cff7e@ec2-54-161-238-249.compute-1.amazonaws.com:5432/d8gceaqrtfr7m5`;
 
@@ -17,17 +17,17 @@ let getAllCustomer= () =>{
 }
 
 let setCustomer = (name,email,password) => {
-    const salt = bcrypt.genSaltSync(3);
-    const hashPassword = bcrypt.hashSync(password, salt);
+    //const salt = bcrypt.genSaltSync(3);
+    //const hashPassword = bcrypt.hashSync(password, salt);
     return pool.query('insert into imagequiz.customer(name,email,password) values ($1,$2,$3)',
-    [name,email.toLowerCase(),hashPassword]);
+    [name,email.toLowerCase(),password]);
 }
 
 let checkCustomer = (email,password) =>{
-    const salt = bcrypt.genSaltSync(3);
-    const hashPassword = bcrypt.hashSync(password, salt);
+    //const salt = bcrypt.genSaltSync(3);
+    //const hashPassword = bcrypt.hashSync(password, salt);
     return pool.query('select * from imagequiz.customer where (email = $1 and password = $2)',
-    [email.toLowerCase(),hashPassword]);
+    [email.toLowerCase(),password]);
 }
 //3. category: id, name
 
