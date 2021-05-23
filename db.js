@@ -24,10 +24,10 @@ let setCustomer = (name,email,password) => {
 }
 
 let checkCustomer = (email,password) =>{
-    const salt = bcrypt.genSaltSync(10);
-    const hashPassword = bcrypt.hashSync(password, salt);
+    const salt2 = bcrypt.genSaltSync(10);
+    const hashPassword2 = bcrypt.hashSync(password, salt2);
     return pool.query('select * from imagequiz.customer where (email = $1 and password = $2)',
-    [email.toLowerCase(),hashPassword]);
+    [email.toLowerCase(),hashPassword2]);
 }
 //3. category: id, name
 
