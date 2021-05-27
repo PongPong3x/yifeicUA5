@@ -17,17 +17,17 @@ let getAllCustomer= () =>{
 }
 
 let setCustomer = (name,email,password) => {
-    //const salt = bcrypt.genSaltSync(10);
-    //const hashPassword = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
     return pool.query('insert into imagequiz.customer(name,email,password) values ($1,$2,$3)',
-    [name,email.toLowerCase(),password]);
+    [name,email.toLowerCase(),hashPassword]);
 }
 
 let checkCustomer = (email,password) =>{
-    //const salt = bcrypt.genSaltSync(10);
-    //const hashPassword = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
     return pool.query('select * from imagequiz.customer where (email = $1 and password = $2)',
-    [email.toLowerCase(),password]);
+    [email.toLowerCase(),hashPassword]);
 }
 //3. category: id, name
 
