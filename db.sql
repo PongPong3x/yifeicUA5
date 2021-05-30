@@ -8,6 +8,7 @@ drop table if exists imagequiz.category;
 drop table if exists imagequiz.quiz;
 drop table if exists imagequiz.quiz_question;
 drop table if exists imagequiz.flower;
+drop table if exists imagequiz.score;
 
 create table imagequiz.customer
 (
@@ -56,4 +57,14 @@ create table imagequiz.flower
 	id bigserial primary key,
 	name text not null,
 	picture text not null
+);
+
+
+create table imagequiz.score
+(
+	id bigserial primary key,
+	customer_id text not null,
+	quiz_id text not null,
+	score int not null,
+	date text not null
 );

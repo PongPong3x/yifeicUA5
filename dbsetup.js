@@ -2,12 +2,12 @@ const { Pool } = require('pg');
 const fs = require('fs');
 const { quizzes } = require('./data');
 var {flowers} = require('./flowers');
+require('dotenv').config();
 let create_db_structure_sql = fs.readFileSync('db.sql').toString();
-const connectionString =
-    `postgres://liknsyvyppedoj:fcfe71e1f7cf8408f9dfc9b3cdee82ab1056a6fee41ea6a0e6c626ce435cff7e@ec2-54-161-238-249.compute-1.amazonaws.com:5432/d8gceaqrtfr7m5`;
-const connection = {
-    connectionString: connectionString,
-    ssl: { rejectUnauthorized: false }
+const connectionString = `postgres://liknsyvyppedoj:${process.env.PASSWORD}@${process.env.HOST}:${process.env.DATABASEPORT}/${process.env.DATABASE}`;
+const connection={
+    connectionString: process.env.DATABASE_URL ? process.env.DATABASE_URL: connectionString,
+    ssl: {rejectUnauthorized: false}
 }
 const pool = new Pool(connection);
 let getInsertQuizzesSql = (categoryId) => {
@@ -35,7 +35,9 @@ let getInsertQuizSql = (categoryId, quiz) => {
 }
 pool.query(create_db_structure_sql)
     .then(x => console.log('The database tables created successfully.'))
-    .catch(e => console.log(e))
+    .catch(e => {
+        console.log("error in creating the table")
+        console.log(e);})
     .then(() => pool.query('insert into imagequiz.category(name) values ($1) returning id', ['flowers']))
     .then(x => pool.query(getInsertQuizzesSql(x.rows[0].id)))
     .then(x => console.log('The quizzes were inserted into the database.'))

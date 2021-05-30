@@ -1,10 +1,11 @@
 //const e = require('express');
 const bcrypt = require('bcrypt');
-const {Pool} = require('pg');
-const connectionString = `postgres://liknsyvyppedoj:fcfe71e1f7cf8408f9dfc9b3cdee82ab1056a6fee41ea6a0e6c626ce435cff7e@ec2-54-161-238-249.compute-1.amazonaws.com:5432/d8gceaqrtfr7m5`;
-
+const {Pool} = require('pg'); 
+require('dotenv').config();
+//const connectionString = `postgres://:@:5432/d8gceaqrtfr7m5`;
+const connectionString = `postgres://liknsyvyppedoj:${process.env.PASSWORD}@${process.env.HOST}:${process.env.DATABASEPORT}/${process.env.DATABASE}`;
 const connection={
-    connectionString: connectionString,
+    connectionString: process.env.DATABASE_URL ? process.env.DATABASE_URL: connectionString,
     ssl: {rejectUnauthorized: false}
 }
 const pool = new Pool(connection);
