@@ -165,14 +165,14 @@ application.post('/score', (request, response) =>{
     let quizId = request.body.quizId;
     let score = request.body.score;
     //let date = request.body.date;
-    api.addScore(quizTaker,quizId,score);
+    sql_api.addScore(quizTaker,quizId,score);
     response.json({message:"update successful"});
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
-    let scoreOfquiz = api.checkScore(quiztaker,quizid);
+    let scoreOfquiz = sql_api.checkScore(quiztaker,quizid);
     response.send(JSON. stringify(scoreOfquiz));
 
 });
