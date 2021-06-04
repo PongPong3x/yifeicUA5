@@ -6,7 +6,7 @@ const db = require('./db');
 
 
 
-
+/*
 let addScore = (quizTaker,quizId, score) => {
     scores.push({quizTaker,quizId,score});
 }
@@ -21,10 +21,16 @@ let checkScore = (quiztaker,quizid) => {
     }
     return "0";
 }
+*/
 
 
-
-
+let addScore = (quizTaker,quizId, score) => {
+    return db.addScore(quizTaker,quizId, score);
+    //scores.push({quizTaker,quizId,score});
+}
+let checkScore = (quiztaker,quizid) => {
+    return db.checkScore(quizTaker,quizId);
+}
 
 let getAllCustomer= () =>{
     return db.getAllCustomer();

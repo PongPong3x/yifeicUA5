@@ -65,9 +65,25 @@ let getFlowers= () =>{
 }
 
 
+let addScore = (quizTaker,quizId, score) => {
+    //scores.push({quizTaker,quizId,score});
+    return pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',
+    [quizTaker,quizId,score]);
+}
+
+
+let checkScore = (quiztaker,quizid) => {
+    return pool.query('select score from imagequiz.score where (customer_id = $1 and quiz_id = $2)',
+    [quiztaker,quizId]);
+}
+
+
+
 exports.getAllCustomer = getAllCustomer;
 exports.setCustomer = setCustomer;
 exports.checkCustomer = checkCustomer;
 exports.getFlowers = getFlowers;
 exports.getQuizs = getQuizs;
 exports.getQuizById = getQuizById;
+exports.addScore = addScore;
+exports.checkScore = checkScore;
