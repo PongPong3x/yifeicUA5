@@ -173,7 +173,7 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     let quiztaker = request.body.quiztaker;
     let quizid = request.body.quizid;
     let scoreOfquiz = sql_api.checkScore(quiztaker,quizid);
-    response.json(scoreOfquiz);
+    response.json(JSON.parse(scoreOfquiz));
     //response.send(JSON. stringify(scoreOfquiz));
 
 });
