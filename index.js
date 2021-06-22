@@ -170,6 +170,11 @@ application.post('/score', (request, response) =>{
         console.log(x);
         response.json({message:"update successful"});
     })
+    .catch(e => {
+        console.log(e);
+        //response.sendStatus(403);
+        response.json({message: 'error: '+e});
+    })
 
 });
 
@@ -183,6 +188,11 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
     .then(x => {
         console.log(x);
         response.json(x);
+    })
+    .catch(e => {
+        console.log(e);
+        //response.sendStatus(403);
+        response.json({message: 'error: '+e});
     })
 
 });
