@@ -29,7 +29,7 @@ let addScore = (quizTaker,quizId, score) => {
     //scores.push({quizTaker,quizId,score});
 }
 let checkScore = (quiztaker,quizid) => {
-    return db.checkScore(quizTaker,quizId);
+    return db.checkScore(quiztaker,quizid);
 }
 
 let getAllCustomer= () =>{
