@@ -42,7 +42,7 @@ create table imagequiz.quiz
 (
 	id bigserial primary key,
 	name text not null,
-	category_id int not null
+	category_id int not null references imagequiz.category(id)
 );
 
 
@@ -65,8 +65,8 @@ create table imagequiz.flower
 create table imagequiz.score
 (
 	id bigserial primary key,
-	customer_id int not null,
-	quiz_id text not null,
+	customer_id int not null references imagequiz.category(id),
+	quiz_id int not null references imagequiz.quiz(id),
 	score int not null,
 	date text not null
 );
