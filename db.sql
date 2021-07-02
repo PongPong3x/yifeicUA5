@@ -3,12 +3,12 @@
 create schema if not exists imagequiz;
 
 
-drop table if exists imagequiz.question;
-drop table if exists imagequiz.category;
-drop table if exists imagequiz.quiz;
-drop table if exists imagequiz.quiz_question;
-drop table if exists imagequiz.flower;
-drop table if exists imagequiz.score;
+drop table if exists imagequiz.question cascade;
+drop table if exists imagequiz.category cascade;
+drop table if exists imagequiz.quiz cascade;
+drop table if exists imagequiz.quiz_question cascade;
+drop table if exists imagequiz.flower cascade;
+drop table if exists imagequiz.score cascade;
 
 
 drop table if exists imagequiz.customer;
@@ -42,7 +42,7 @@ create table imagequiz.quiz
 (
 	id bigserial primary key,
 	name text not null,
-	category_id int not null
+	category_id int not null references imagequiz.category(id)
 );
 
 
@@ -65,8 +65,8 @@ create table imagequiz.flower
 create table imagequiz.score
 (
 	id bigserial primary key,
-	customer_id int not null,
-	quiz_id text not null,
+	customer_id int not null references imagequiz.category(id),
+	quiz_id int not null references imagequiz.quiz(id),
 	score int not null,
 	date text not null
 );
