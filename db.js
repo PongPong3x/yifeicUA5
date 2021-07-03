@@ -76,7 +76,7 @@ let addScore = (quizTaker,quizId, score) => {
 
 let checkScore = (quiztaker,quizid) => {
     return pool.query('select customer_id from imagequiz.customer where customer_id = $1',[quiztaker])
-    .then(x => pool.query('select score from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].customer_id,parseInt(quizid)]).then(x => x.rows));
+    .then(x => pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].customer_id,parseInt(quizid)]).then(x => x.rows));
 }
 
 
