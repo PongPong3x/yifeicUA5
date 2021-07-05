@@ -68,7 +68,7 @@ let getFlowers= () =>{
 let addScore = (quizTaker,quizId, score) => {
     //scores.push({quizTaker,quizId,score});
     return pool.query('select customer_id from imagequiz.customer where customer_id = $1',[quizTaker])
-    .then(x => pool.query('insert into imagequiz.score(customer_id,quiz_id,score,date) values ($1,$2,$3,$4)',[x.rows[0].customer_id,parseInt(quizId),score,'']).then(x => x.rows));
+    .then(x => pool.query('insert into imagequiz.score(customer_id,quiz_id,score,date) values ($1,$2,$3,$4)',[x.rows[0].customer_id,parseInt(quizId),score,1]).then(x => x.rows));
     //return pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',
     //[quizTaker,quizId,score]);
 }
