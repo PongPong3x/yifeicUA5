@@ -67,15 +67,19 @@ let getFlowers= () =>{
 
 let addScore = (quizTaker,quizId, score) => {
     //scores.push({quizTaker,quizId,score});
-    return pool.query('select * from imagequiz.customer where email like $1',[quizTaker.toLowerCase()])
-    .then(x => pool.query('insert into imagequiz.score(customer_id,quiz_id,score,date) values ($1,$2,$3,$4)',[x.rows[0].id,quizId,score,1]).then(x => x.rows));
+    return pool.query('select * from imagequiz.customer where email = $1',[quizTaker.toLowerCase()])
+    .then(x => {
+        console.log(quizTaker.toLowerCase());
+        console.log(x.rows);
+        pool.query('insert into imagequiz.score(customer_id,quiz_id,score,date) values ($1,$2,$3,$4)',[x.rows[0].id,quizId,score,1]).then(x => x.rows);
+    })
     //return pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',
     //[quizTaker,quizId,score]);
 }
 
 
 let checkScore = (quiztaker,quizid) => {
-    return pool.query('select * from imagequiz.customer where email like $1',[quiztaker.toLowerCase()])
+    return pool.query('select * from imagequiz.customer where email = $1',[quiztaker.toLowerCase()])
     .then(x => pool.query('select score from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].id,quizid]).then(x => x.rows));
 }
 

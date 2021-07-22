@@ -65,7 +65,7 @@ create table imagequiz.flower
 create table imagequiz.score
 (
 	id bigserial primary key,
-	customer_id int not null references imagequiz.category(id),
+	customer_id int not null references imagequiz.customer(id),
 	quiz_id int not null references imagequiz.quiz(id),
 	score int not null,
 	date int not null
