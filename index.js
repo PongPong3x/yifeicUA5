@@ -179,8 +179,9 @@ application.post('/score', (request, response) =>{
 });
 
 application.get('/scores/:quiztaker/:quizid', (request, response) =>{
-    let quiztaker = request.body.quiztaker;
-    let quizid = request.body.quizid;
+    let quiztaker = request.params.quiztaker;
+    let quizid = request.params.quizid;
+    console.log(quizid);
     //let scoreOfquiz = sql_api.checkScore(quiztaker,quizid);
     //response.json(JSON.parse(scoreOfquiz));
     //response.send(JSON. stringify(scoreOfquiz));

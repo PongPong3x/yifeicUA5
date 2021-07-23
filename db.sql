@@ -49,7 +49,7 @@ create table imagequiz.quiz
 
 create table imagequiz.quiz_question
 (
-	quiz_id int not null,
+	quiz_id int not null references imagequiz.quiz(id),
 	question_id int not null
 );
 

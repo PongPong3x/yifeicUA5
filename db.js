@@ -80,7 +80,14 @@ let addScore = (quizTaker,quizId, score) => {
 
 let checkScore = (quiztaker,quizid) => {
     return pool.query('select * from imagequiz.customer where email = $1',[quiztaker.toLowerCase()])
-    .then(x => pool.query('select score from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].id,quizid]).then(x => x.rows));
+    .then(x => {
+        console.log(x.rows[0].id);
+        console.log(quizid);
+        return pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].id,quizid]).then(x => {
+            console.log(x.rows[0].score);
+            return x.rows[0].score});
+    
+    });
 }
 
 
