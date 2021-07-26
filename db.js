@@ -43,8 +43,10 @@ let getQuizs = () =>{
     .then(x => x.rows);
 }
 
-let getQuizById = (id) =>{
-    return pool.query('select * from imagequiz.quiz where id = $1',[id]);
+let getQuizById = (name) =>{
+    return pool.query('select q2.* from imagequiz.quiz q inner join imagequiz.quiz_question qq on q.id = qq.quiz_id inner join imagequiz.question q2 on q2.id = qq.question_id where q.name = $1',
+    [name])
+    .then(x => x.rows);
 }
 //5. quiz_question: quiz_id, question_id
 

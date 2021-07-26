@@ -54,8 +54,8 @@ let getQuizs= () =>{
     return db.getQuizs();
 }
 
-let getQuizById = (id) => {
-    return db.getQuizById(id);
+let getQuizById = (name) => {
+    return db.getQuizById(name);
 }
 
 exports.getFlowers = getFlowers;
