@@ -68,5 +68,5 @@ create table imagequiz.score
 	customer_id int not null references imagequiz.customer(id),
 	quiz_id int not null references imagequiz.quiz(id),
 	score int not null,
-	date int not null
+	date timestamp not null default now()
 );

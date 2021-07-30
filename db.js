@@ -73,7 +73,7 @@ let addScore = (quizTaker,quizId, score) => {
     .then(x => {
         console.log(quizTaker.toLowerCase());
         console.log(x.rows);
-        pool.query('insert into imagequiz.score(customer_id,quiz_id,score,date) values ($1,$2,$3,$4)',[x.rows[0].id,quizId,score,1]).then(x => x.rows);
+        pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',[x.rows[0].id,quizId,score]).then(x => x.rows);
     })
     //return pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',
     //[quizTaker,quizId,score]);
