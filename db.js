@@ -85,7 +85,7 @@ let checkScore = (quiztaker,quizid) => {
     .then(x => {
         console.log(x.rows[0].id);
         console.log(quizid);
-        return pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].id,quizid]).then(x => {
+        return pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = (select id from imagequiz.quiz where name = $2)))',[x.rows[0].id,quizid]).then(x => {
             console.log(x.rows);
             return x.rows});
     
