@@ -11,6 +11,7 @@ const connection={
     ssl: {rejectUnauthorized: false}
 }
 const pool = new Pool(connection);
+
 let getInsertFlowersSql = () => {
     let sql = "";
     sql = `insert into imagequiz.flower(name, picture) values `;
