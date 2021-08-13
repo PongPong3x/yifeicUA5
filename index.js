@@ -162,7 +162,7 @@ application.get('/quiz/:name', (request, response) =>{
 
 application.post('/score', (request, response) =>{
     let quizTaker = request.body.quizTaker;
-    let quizId = request.body.quizName;
+    let quizId = request.body.quizId;
     let score = request.body.score;
     //let date = request.body.date;
     sql_api.addScore(quizTaker,quizId,score)
