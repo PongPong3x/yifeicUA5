@@ -73,7 +73,7 @@ let addScore = (quizTaker,quizId, score) => {
     .then(x => {
         console.log(quizTaker.toLowerCase());
         console.log(x.rows);
-        pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',[x.rows[0].id,quizId,score]).then(x => x.rows);
+        pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,(select id from imagequiz.quiz where name = $2),$3)',[x.rows[0].id,quizId,score]).then(x => x.rows);
     })
     //return pool.query('insert into imagequiz.score(customer_id,quiz_id,score) values ($1,$2,$3)',
     //[quizTaker,quizId,score]);
@@ -85,7 +85,7 @@ let checkScore = (quiztaker,quizid) => {
     .then(x => {
         console.log(x.rows[0].id);
         console.log(quizid);
-        return pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = $2)',[x.rows[0].id,quizid]).then(x => {
+        return pool.query('select * from imagequiz.score where (customer_id = $1 and quiz_id = (select id from imagequiz.quiz where name = $2))',[x.rows[0].id,quizid]).then(x => {
             console.log(x.rows);
             return x.rows});
     
