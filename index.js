@@ -2,7 +2,12 @@
 const api = require('./api');
 const sql_api = require('./sql_api');
 const cors = require('cors');
-const express = require('express');      
+const { v4: uuid } = require('uuid');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const application= express();
 const port = process.env.PORT || 5000;      
 
@@ -14,84 +19,83 @@ application.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     //res.header("Cache-Control","no-cache");
     next();
- })
+})
      //response.header("Access-Control-Allow-Origin", "*");
     //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     //response.setHeader("Cache-Control","no-cache");
     //response.setHeader("Access-Control-Allow-Origin", "*");
     //response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
+passport.use(new LocalStrategy(
+{ usernameField: 'email' },
+(email, password, done) => {
+    console.log('Inside local strategy callback');     
+    api.login(email, password)
+        .then(x => {
+            console.log(x);
+            let user = { id: x.id, name: x.name, email: email };
+            console.log(user);
+            return done(null, user);
+        })
+        .catch(e => {
+            console.log('The email or password is not valid.');
+            return done(null, false, 'The email or password was invalid');
+        });
+}
+));
+
+passport.serializeUser((user, done) => {
+    console.log('Inside serializeUser callback. User id is save to the session file store here')
+    done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+   console.log('Inside deserializeUser callback')
+   console.log(`The user id passport saved in the session file store is: ${id}`)
+   const user = {id: id}; 
+   done(null, user);
+});
+
+application.use(session({
+    genid: (request) => {
+       //console.log(request); 
+       console.log('Inside session middleware genid function')
+       console.log(`Request object sessionID from client: ${request.sessionID}`)
+ 
+       return uuid(); // use UUIDs for session IDs
+    },
+    store: new FileStore(),
+    secret: 'some random string',
+    resave: false,
+    saveUninitialized: true
+ }));
+ application.use(passport.initialize());
+ application.use(passport.session());
+
+
+
+
+
 application.get('/add', (request, response) =>{
     response.send('The add request resived');
 });
 
 application.get('/add2/:n/:m', (request, response) =>{
+    if(request.isAuthenticated()) {
+        let n = Number(request.params.n);
+        let m = Number(request.params.m);
+        let sum = api.add(n, m);
+        response.send(`${n} + ${m} = ${sum}`);
+     } else {
+        response.status(401).json({done: false, message: 'Please sign in first.'});
+     }
+     /*
     let n = Number(request.params.n);
     let m = Number(request.params.m);
     let sum = api.add(n,m);
     response.send(`${n} + ${m} = ${sum}`);
-});
-/*
-application.post('/register', (request, response) =>{
-    let name = request.body.name;
-    let email = request.body.email;
-    let password = request.body.password;
-    if(api.checkCustomer(email,password)==0){
-        response.sendStatus(403);
-    }
-    else{
-        let sum = api.addCustomer(name,email,password);
-        response.sendStatus(200);
-        //response.send(JSON.stringify(`customer added ${name}`));
-        //response.send(JSON.stringify(`customer added ${name}`));
-    }
+    */
 });
 
-application.post('/login', (request, response) =>{
-    let name = request.body.name;
-    let email = request.body.email;
-    let password = request.body.password;
-    if(api.checkCustomer(email,password)==1){
-        response.send(JSON. stringify({"isvalid":true,"message":"customer exist"}));
-    }
-    else{
-        response.send(JSON. stringify({"isvalid":false,"message":"customer not exist"}));
-    }
-
-});
-application.get('/flowers', (request, response) =>{
-    let flowerL = api.getFlowers();
-    response.send(JSON. stringify(flowerL));
-});
-application.get('/quizzes', (request, response) =>{
-    let quizs = api.getQuizs();
-    response.send(JSON. stringify(quizs));
-});
-
-application.get('/quiz/:id', (request, response) =>{
-    let quiz = api.getQuizById(request.params.id);
-    response.send(JSON. stringify(quiz));
-});
-
-
-
-application.post('/score', (request, response) =>{
-    let quizTaker = request.body.quizTaker;
-    let quizId = request.body.quizId;
-    let score = request.body.score;
-    //let date = request.body.date;
-    api.addScore(quizTaker,quizId,score);
-    response.send(JSON. stringify({"message":"update successful"}));
-});
-
-application.get('/scores/:quiztaker/:quizid', (request, response) =>{
-    let quiztaker = request.body.quiztaker;
-    let quizid = request.body.quizid;
-    let scoreOfquiz = api.checkScore(quiztaker,quizid);
-    response.send(JSON. stringify(scoreOfquiz));
-});
-
-*/
 application.post('/register', (request, response) =>{
 
     let name = request.body.name;
@@ -109,6 +113,14 @@ application.post('/register', (request, response) =>{
     })
 });
 
+
+application.get('/login', (req, res) => {
+    console.log('Inside GET /login callback')
+    console.log(req.sessionID)
+    res.send(`You got the login page!\n`)
+})
+
+/*
 application.post('/login', (request, response) =>{
     //let name = request.body.name;
     let email = request.body.email;
@@ -121,6 +133,23 @@ application.post('/login', (request, response) =>{
         response.json({isvalid:"false", message:"customer not exist"});
     })
 });
+*/
+
+application.post('/login', (request, response, next) => {
+    console.log('Inside POST /login callback')
+    passport.authenticate('local', (err, user, info) => {
+      console.log('Inside passport.authenticate() callback');
+      console.log(`req.session.passport: ${JSON.stringify(request.session.passport)}`);
+      console.log(`req.user: ${JSON.stringify(request.user)}`);
+      request.login(user, (err) => {
+        console.log('Inside req.login() callback')
+        console.log(`req.session.passport: ${JSON.stringify(request.session.passport)}`)
+        console.log(`req.user: ${JSON.stringify(request.user)}`)
+        return response.json({ done: true, message: 'The customer logged in.' });;
+      })
+    })(request, response, next);   
+ });
+
 
 
 
@@ -199,3 +228,4 @@ application.get('/scores/:quiztaker/:quizid', (request, response) =>{
 });
 
 application. listen(port, () => console.log('The application is listening to '+port))
+
