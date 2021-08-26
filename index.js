@@ -30,10 +30,11 @@ passport.use(new LocalStrategy(
 { usernameField: 'email' },
 (email, password, done) => {
     console.log('Inside local strategy callback');     
-    api.login(email, password)
+    sql_api.checkCustomer(email, password)
         .then(x => {
+            x.json();
             console.log(x);
-            let user = { id: x.id, name: x.name, email: email };
+            let user = { id: x.rows[0].id, name: x.rows[0].name, email: email };
             console.log(user);
             return done(null, user);
         })
