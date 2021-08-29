@@ -105,6 +105,7 @@ application.post('/register', (request, response) =>{
     sql_api.setCustomer(name,email,password)
     .then(x => {
         //response.status(200).json({message: 'The customer added'});
+        localStorage.setItem('customer',email);
         response.json({message: 'The customer added'});
     })
     .catch(e => {
