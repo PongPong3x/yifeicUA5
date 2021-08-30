@@ -188,15 +188,12 @@ application.get('/quizzes', (request, response) =>{
 });
 
 application.get('/quiz/:name', (request, response) =>{
-    if(request.isAuthenticated()) {
-        sql_api.getQuizById(request.params.name)
-        .then(x => {
-            console.log(x);
-            response.json(x);
-        })
-    }else{
-        response.status(401).json({done: false, message: 'Please sign in first.'});
-    }
+
+    sql_api.getQuizById(request.params.name)
+    .then(x => {
+        console.log(x);
+        response.json(x);
+    })
 });
 
 application.post('/score', (request, response) =>{
