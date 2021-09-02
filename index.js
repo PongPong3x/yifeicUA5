@@ -183,6 +183,7 @@ application.get('/quizzes', (request, response) =>{
             response.json(x);
         })
     }else{
+        window.location.replace("/login");
         response.status(401).json({done: false, message: 'Please sign in first.'});
     }
 });
@@ -195,6 +196,7 @@ application.get('/quiz/:name', (request, response) =>{
             response.json(x);
         })
     }else{
+        window.location.replace("/login");
         response.status(401).json({done: false, message: 'Please sign in first.'});
     }
 });
