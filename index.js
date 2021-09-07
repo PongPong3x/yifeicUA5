@@ -176,6 +176,7 @@ application.get('/flowers', (request, response) =>{
 });
 
 application.get('/quizzes', (request, response) =>{
+    /*
     if(request.isAuthenticated()) {
         sql_api.getQuizs()
         .then(x => {
@@ -185,18 +186,20 @@ application.get('/quizzes', (request, response) =>{
     }else{
         response.status(401).json({done: false, message: 'Please sign in first.'});
     }
+    */
+    sql_api.getQuizs()
+    .then(x => {
+        console.log(x);
+        response.json(x);
+    })
 });
 
 application.get('/quiz/:name', (request, response) =>{
-    if(request.isAuthenticated()) {
-        sql_api.getQuizById(request.params.name)
+    sql_api.getQuizById(request.params.name)
         .then(x => {
             console.log(x);
             response.json(x);
         })
-    }else{
-        response.status(401).json({done: false, message: 'Please sign in first.'});
-    }
 });
 
 application.post('/score', (request, response) =>{
